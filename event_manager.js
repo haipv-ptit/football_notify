@@ -1,6 +1,6 @@
 'use strict';
-const TIME_INTERVAL = 60000;
-const TIME_ALIVE = 60000;
+const TIME_INTERVAL = 180000;
+const TIME_ALIVE = 90000;
 let monitorId = 0;
 let events = {};
 
@@ -8,12 +8,8 @@ let checkEvent = (key) => {
     if(events.hasOwnProperty(key)) {
         return true;
     }
-    events[key] = 120000+new Date().getTime();
+    events[key] = new Date().getTime();
     return false;
-};
-
-let putEvent = (key, value) => {
-    events[key] = value;
 };
 
 let _resetEvents = () => {
@@ -39,5 +35,4 @@ let monitorEvents = () => {
 module.exports = {
     monitorEvents: monitorEvents,
     checkEvent: checkEvent,
-    putEvent: putEvent
 };

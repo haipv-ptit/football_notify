@@ -1,5 +1,6 @@
 'use strict';
 const helper = require('./helper');
+const notification = require('./notification');
 
 let checkDataChanged = (result) => {
     let res = JSON.parse(result);
@@ -43,8 +44,11 @@ let onStatusChanged = (res) => {
     data['status'] = res['status']['description'];
     data['homeScore'] = res['homeScore']['current'];
     data['awayScore'] = res['awayScore']['current'];
-    console.log(data['home'] + ' - ' + data['away'] + '\n' +
-        data['status'] + ' ' + data['homeScore'] + ' - ' +  data['awayScore']+'\n=========\n');
+    data['time'] = res['changes']['changeTimestamp'];
+    let event = {'payload': data};
+    event['title'] = data['home'] + ' - ' +  data['home'];
+    event['body'] = data['homeScore'] + ' - ' +  data['awayScore'] + ' ' + data['status'];
+    notification.send(event);
 };
 
 let onScoreChanged = (res) => {
@@ -55,14 +59,17 @@ let onScoreChanged = (res) => {
     data['status'] = res['status']['description'];
     data['homeScore'] = res['homeScore']['current'];
     data['awayScore'] = res['awayScore']['current'];
+    data['time'] = res['changes']['changeTimestamp'];
     let body = data['homeScore'] + ' - ' +  data['awayScore'];
     if(res['changesData']['home']['score'] === true) {
         body = '[' + data['homeScore'] + '] - ' +  data['awayScore'];
     } else  if(res['changesData']['away']['score'] === true) {
         body = data['homeScore'] + ' - [' +  data['awayScore'] + ']';
     }
-    console.log(data['home'] + ' - ' + data['away'] + '\n' +
-        body +'\n=========\n');
+    let event = {'payload': data};
+    event['title'] = data['home'] + ' - ' +  data['home'];
+    event['body'] = body;
+    notification.send(event);
 };
 
 module.exports = {
