@@ -1,8 +1,7 @@
 require('./config');
 const presenter = require('./presenter');
 const event_manager = require('./event_manager');
-
-const events  = ["sport_football"];
+const events  = ["team_35", "team_2817", "team_2829", "team_42"];
 
 let WebSocket = require('ws');
 

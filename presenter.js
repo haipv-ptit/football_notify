@@ -84,7 +84,7 @@ let _buildPayload = (res) => {
 let _buildCondition = (res) => {
     let team1 = 'match_team_' + res['homeTeam']['id'];
     let team2 = 'match_team_' + res['awayTeam']['id'];
-    return "'" + team1 + "' in topics || '" + team2 + "' in topics || 'event_football' in topics";
+    return "'" + team1 + "' in topics || '" + team2 + "' in topics";
 };
 
 module.exports = {
