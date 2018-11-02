@@ -57,7 +57,6 @@ let onScoreChanged = (res) => {
     let nameHome = res['homeTeam']['shortName'];
     let nameAway = res['awayTeam']['shortName'];
     let payload = _buildPayload(res);
-    payload['type'] = 'match';
     payload['event'] = 'score';
     let body = homeScore + ' - ' + awayScore;
     if (res['changesData']['home']['score'] === true) {
@@ -65,6 +64,7 @@ let onScoreChanged = (res) => {
     } else if (res['changesData']['away']['score'] === true) {
         body = homeScore + ' - [' + awayScore + ']';
     }
+    body = 'Goal: ' + body;
     let message = {'payload': payload};
     message['title'] = nameHome + ' - ' + nameAway;
     message['body'] = body;
@@ -84,7 +84,7 @@ let _buildPayload = (res) => {
 let _buildCondition = (res) => {
     let team1 = 'match_team_' + res['homeTeam']['id'];
     let team2 = 'match_team_' + res['awayTeam']['id'];
-    return "'" + team1 + "' in topics || '" + team2 + "' in topics";
+    return "'" + team1 + "' in topics || '" + team2 + "' in topics || 'event_football' in topics";
 };
 
 module.exports = {
