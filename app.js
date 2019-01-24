@@ -8,7 +8,7 @@ const event_manager = require('./event_manager');
  * Arsenal: 42
  * Juventus: 2687
  */
-const events  = ["team_35", "team_2817", "team_2829", "team_42", "team_2687"];
+const events  = ["team_17", "team_35", "team_2817", "team_2829", "team_42", "team_2687"];
 
 let WebSocket = require('ws');
 
